@@ -15,4 +15,16 @@ const saveRecipe = (req, res) => {
   });
 };
 
-module.exports = { saveRecipe };
+const recipesForUser = (req, res) => {
+  const sql = `SELECT * FROM user_recipes WHERE user_id = ?`
+  const { id } = req.user_info;
+  connection.query(sql, [id], (err, rows) => {
+    if (err) {
+      return res.status(500).json({ message: "server error ", err });
+    }
+    console.log(rows);
+    res.status(200).json({ message: "Here are your recipes", rows });
+  });
+}
+
+module.exports = { saveRecipe, recipesForUser };
