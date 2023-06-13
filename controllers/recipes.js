@@ -29,7 +29,7 @@ const recipesForUser = (req, res) => {
 
 const deleteRecipe = (req, res) => {
   let sql = `DELETE FROM user_recipes WHERE (id = ?)`;
-  const {id} = req.params
+  const { id } = req.params;
   connection.query(sql, [id], (err, results) => {
     if (err) {
       return res.status(500).json({ message: "server error ", err });
